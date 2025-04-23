@@ -128,7 +128,7 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
    value of each non terminal. (See section 3.6 in the bison 
    documentation for details). */
 
-/* Declare types for the grammar's non-terminals. */
+/* Declare types for the grammar's non-terminals . */
 %type <program> program
 %type <classes> class_list
 %type <class_> class
