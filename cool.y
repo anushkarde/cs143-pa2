@@ -171,16 +171,16 @@ optional_feature_list:		/* empty */
 { $$ = append_Features($1, single_Features($2)); }
 /* end of grammar */
 
-feature: OBJECTID '('')' ':' TYPEID '{' expr '}' ';'
-{ $$ = method($1, nil_Formals(), $5, $7); }
-| OBJECTID '(' formal ')' ':' TYPEID '{' expr '}' ';'
-{ $$ = method($1, $3, $6, $8); }
-| OBJECTID '(' formal_list ')' ':' TYPEID '{' expr '}' ';'
-{ $$ = method($1, $3, $6, $8); }
-| OBJECTID ':' TYPEID ';'
-{ $$ = attr($1, $3, nil_Expressions()); }
-| OBJECTID ':' TYPEID ASSIGN expr ';'
-{ $$ = attr($1, $3, $5); }
+feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
+{ $res = method($a1, nil_Formals(), $a3, $a4); }
+| OBJECTID[a1] '(' formal[a2] ')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
+{ $res = method($a1, $a2, $a3, $a4); }
+| OBJECTID[a1] '(' formal_list[a2] ')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
+{ $res = method($a1, $a2, $a3, $a4); }
+| OBJECTID[a1] ':' TYPEID[a2] ';'
+{ $res = attr($a1, $a2, nil_Expressions()); }
+| OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ';'
+{ $res = attr($a1, $a2, $a3); }
 
 %%
 
