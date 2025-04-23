@@ -133,6 +133,11 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 %type <classes> class_list
 %type <class_> class
 %type <features> optional_feature_list
+%type <feature> feature
+%type <formal> formal
+%type <formals> formal_list 
+%type <expression> expr
+%type <expressions> expr_list
 
 /* Precedence declarations go here. */
 
@@ -160,7 +165,23 @@ class	: CLASS TYPEID '{' optional_feature_list '}' ';'
 /* Feature list may be empty, but no empty features in list. */
 optional_feature_list:		/* empty */
 {  $$ = nil_Features(); }
+| feature
+{ $$ = single_Features($1); }
+| optional_feature_list feature
+{ $$ = append_Features($1, single_Features($2)); }
 /* end of grammar */
+
+feature: OBJECTID '('')' ':' TYPEID '{' expr '}' ';'
+{ $$ = method($1, nil_Formals(), $5, $7); }
+| OBJECTID '(' formal ')' ':' TYPEID '{' expr '}' ';'
+{ $$ = method($1, $3, $6, $8); }
+| OBJECTID '(' formal_list ')' ':' TYPEID '{' expr '}' ';'
+{ $$ = method($1, $3, $6, $8); }
+| OBJECTID ':' TYPEID ';'
+{ $$ = attr($1, $3, nil_Expressions()); }
+| OBJECTID ':' TYPEID ASSIGN expr ';'
+{ $$ = attr($1, $3, $5); }
+
 %%
 
 /* This function is called automatically when Bison detects a parse error. */
