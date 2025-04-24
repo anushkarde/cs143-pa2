@@ -259,6 +259,7 @@ expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
 | expr_block_list[a1] expr[a2] ';'
 { $res = append_Expressions($a1, single_Expressions($a2)); }
+| error ';' expr_block_list[a1] { yyerrok; }
 
 case_list[res]: case[a1]
 { $res = single_Cases($a1); }
