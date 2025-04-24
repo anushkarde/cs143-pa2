@@ -137,6 +137,7 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 %type <formal> formal
 %type <formals> formal_list 
 %type <expression> expr
+%type <expression> let_body
 %type <expressions> expr_list
 %type <expressions> expr_block_list
 %type <case_> case
@@ -163,7 +164,8 @@ class	: CLASS TYPEID '{' optional_feature_list '}' ';'
 	      stringtable.add_string(curr_filename)); }
 | CLASS TYPEID INHERITS TYPEID '{' optional_feature_list '}' ';'
 { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
-;
+| CLASS error '{' optional_feature_list '}' ';' { yyerrok; }
+| error ';' { yyerrok; };
 
 /* Feature list may be empty, but no empty features in list. */
 optional_feature_list:		/* empty */
@@ -172,6 +174,7 @@ optional_feature_list:		/* empty */
 { $$ = single_Features($1); }
 | optional_feature_list feature
 { $$ = append_Features($1, single_Features($2)); }
+| error ';' feature { yyerrok; };
 /* end of grammar */
 
 feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
@@ -181,15 +184,15 @@ feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
 | OBJECTID[a1] ':' TYPEID[a2] ';'
 { $res = attr($a1, $a2, no_expr()); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ';'
-{ $res = attr($a1, $a2, $a3); }
+{ $res = attr($a1, $a2, $a3); };
 
 formal_list[res]: formal[a1]
 { $res = single_Formals($a1); }
 | formal[a1] ',' formal_list[a2]
-{ $res = append_Formals(single_Formals($a1), $a2); }
+{ $res = append_Formals(single_Formals($a1), $a2); };
 
 formal[res]: OBJECTID[a1] ':' TYPEID[a2]
-{ $res = formal($a1, $a2); }
+{ $res = formal($a1, $a2); };
 
 expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 { $res = assign($a1, $a2); }
@@ -200,15 +203,52 @@ expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 | expr[a1]'@'TYPEID[a2]'.'OBJECTID[a3]'('expr_list[a4]')'
 { $res = static_dispatch($a1, $a2, $a3, $a4); }
 | OBJECTID[a1]'('')'
-{ $res = static_dispatch(no_expr(), idtable.add_string("self"), $a1, nil_Expressions()); }
+{ $res = dispatch(object(idtable.add_string("self")), $a1, nil_Expressions()); }
 | OBJECTID[a1]'('expr_list[a2]')'
-{ $res = static_dispatch(no_expr(), idtable.add_string("self"), $a1, $a2); }
+{ $res = dispatch(object(idtable.add_string("self")), $a1, $a2); }
 | IF expr[a1] THEN expr[a2] ELSE expr[a3] FI
 { $res = cond($a1, $a2, $a3); }
 | WHILE expr[a1] LOOP expr[a2] POOL
 { $res = loop($a1, $a2); }
 | '{' expr_block_list[a1] '}'
 { $res = block($a1); }
+| LET let_body[a1]
+{ $res = $a1; }
+| CASE expr[a1] OF case_list[a2] ESAC
+{ $res = typcase($a1, $a2); }
+| NEW TYPEID[a1]
+{ $res = new_($a1); }
+| ISVOID expr[a1]
+{ $res = isvoid($a1); }
+| expr[a1] '+' expr[a2]
+{ $res = plus($a1, $a2); }
+| expr[a1] '-' expr[a2]
+{ $res = sub($a1, $a2); }
+| expr[a1] '*' expr[a2]
+{ $res = mul($a1, $a2); }
+| expr[a1] '/' expr[a2]
+{ $res = divide($a1, $a2); }
+| '~'expr[a1]
+{ $res = neg($a1); }
+| expr[a1] '<' expr[a2]
+{ $res = lt($a1, $a2); }
+| expr[a1] LE expr[a2]
+{ $res = leq($a1, $a2); }
+| expr[a1] '=' expr[a2]
+{ $res = eq($a2, $a2); }
+| NOT expr[a1]
+{ $res = comp($a1); }
+| '('expr[a1]')'
+{ $res = $a1; }
+| OBJECTID[a1]
+{ $res = object($a1); }
+| INT_CONST[a1]
+{ $res = int_const($a1); }
+| STR_CONST[a1]
+{ $res = string_const($a1); }
+| BOOL_CONST[a1]
+{ $res = bool_const($a1); }
+| error {}; 
 
 expr_list[res]: expr[a1]
 { $res = single_Expressions($a1); }
@@ -219,6 +259,24 @@ expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
 | expr_block_list[a1] expr[a2] ';'
 { $res = append_Expressions($a1, single_Expressions($a2)); }
+
+case_list[res]: case[a1]
+{ $res = single_Cases($a1); }
+| case_list[a1] case[a2]
+{ $res = append_Cases($a1, single_Cases($a2)); }
+
+case[res]: OBJECTID[a1] ':' TYPEID[a2] DARROW expr[a3]';'
+{ $res = branch($a1, $a2, $a3); }
+
+let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
+{ $res = let($a1, $a2, no_expr(), $a3); }
+| OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] IN expr[a4]
+{ $res = let($a1, $a2, $a3, $a4); }
+| OBJECTID[a1] ':' TYPEID[a2] ',' let_body[a3]
+{ $res = let($a1, $a2, no_expr(), $a3); }
+| OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ',' let_body[a4]
+{ $res = let($a1, $a2, $a3, $a4); }
+| error let_body { yyerrok; }
 
 %%
 
