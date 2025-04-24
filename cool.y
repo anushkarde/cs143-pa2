@@ -174,7 +174,7 @@ optional_feature_list:		/* empty */
 { $$ = single_Features($1); }
 | optional_feature_list feature
 { $$ = append_Features($1, single_Features($2)); }
-| error ';' feature { yyerrok; };
+| error ';' optional_feature_list { yyerrok; };
 /* end of grammar */
 
 feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'

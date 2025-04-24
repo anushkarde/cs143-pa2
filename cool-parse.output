@@ -5,7 +5,9 @@ Terminals unused in grammar
 
 State 11 conflicts: 1 shift/reduce
 State 13 conflicts: 1 shift/reduce
+State 20 conflicts: 1 shift/reduce
 State 25 conflicts: 1 shift/reduce
+State 27 conflicts: 1 shift/reduce
 State 73 conflicts: 9 shift/reduce
 State 76 conflicts: 9 shift/reduce
 State 77 conflicts: 1 shift/reduce
@@ -40,7 +42,7 @@ Grammar
     8 optional_feature_list: %empty
     9                      | feature
    10                      | optional_feature_list feature
-   11                      | error ';' feature
+   11                      | error ';' optional_feature_list
 
    12 feature: OBJECTID '(' ')' ':' TYPEID '{' expr '}' ';'
    13        | OBJECTID '(' formal_list ')' ':' TYPEID '{' expr '}' ';'
@@ -163,10 +165,10 @@ Nonterminals, with rules where they appear
         on right: 2 3
     optional_feature_list <features> (49)
         on left: 8 9 10 11
-        on right: 4 5 6 10
+        on right: 4 5 6 10 11
     feature <feature> (50)
         on left: 12 13 14 15
-        on right: 9 10 11
+        on right: 9 10
     formal_list <formals> (51)
         on left: 16 17
         on right: 13 17
@@ -323,7 +325,7 @@ State 13
 
 State 14
 
-   11 optional_feature_list: error . ';' feature
+   11 optional_feature_list: error . ';' optional_feature_list
 
     ';'  shift, and go to state 20
 
@@ -377,11 +379,16 @@ State 19
 
 State 20
 
-   11 optional_feature_list: error ';' . feature
+   11 optional_feature_list: error ';' . optional_feature_list
 
+    error     shift, and go to state 14
     OBJECTID  shift, and go to state 15
 
-    feature  go to state 27
+    OBJECTID  [reduce using rule 8 (optional_feature_list)]
+    '}'       reduce using rule 8 (optional_feature_list)
+
+    optional_feature_list  go to state 27
+    feature                go to state 17
 
 
 State 21
@@ -441,9 +448,15 @@ State 26
 
 State 27
 
-   11 optional_feature_list: error ';' feature .
+   10 optional_feature_list: optional_feature_list . feature
+   11                      | error ';' optional_feature_list .
 
+    OBJECTID  shift, and go to state 15
+
+    OBJECTID  [reduce using rule 11 (optional_feature_list)]
     $default  reduce using rule 11 (optional_feature_list)
+
+    feature  go to state 24
 
 
 State 28
