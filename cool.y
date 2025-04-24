@@ -138,6 +138,9 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 %type <formals> formal_list 
 %type <expression> expr
 %type <expressions> expr_list
+%type <expressions> expr_block_list
+%type <case_> case
+%type <cases> case_list
 
 /* Precedence declarations go here. */
 
@@ -173,14 +176,49 @@ optional_feature_list:		/* empty */
 
 feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
 { $res = method($a1, nil_Formals(), $a3, $a4); }
-| OBJECTID[a1] '(' formal[a2] ')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
-{ $res = method($a1, $a2, $a3, $a4); }
 | OBJECTID[a1] '(' formal_list[a2] ')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
 { $res = method($a1, $a2, $a3, $a4); }
 | OBJECTID[a1] ':' TYPEID[a2] ';'
-{ $res = attr($a1, $a2, nil_Expressions()); }
+{ $res = attr($a1, $a2, no_expr()); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ';'
 { $res = attr($a1, $a2, $a3); }
+
+formal_list[res]: formal[a1]
+{ $res = single_Formals($a1); }
+| formal[a1] ',' formal_list[a2]
+{ $res = append_Formals(single_Formals($a1), $a2); }
+
+formal[res]: OBJECTID[a1] ':' TYPEID[a2]
+{ $res = formal($a1, $a2); }
+
+expr[res]: OBJECTID[a1] ASSIGN expr[a2]
+{ $res = assign($a1, $a2); }
+| expr[a1]'.'OBJECTID[a2]'('')'
+{ $res = dispatch($a1, $a2, nil_Expressions()); }
+| expr[a1]'@'TYPEID[a2]'.'OBJECTID[a3]'('')'
+{ $res = static_dispatch($a1, $a2, $a3, nil_Expressions()); }
+| expr[a1]'@'TYPEID[a2]'.'OBJECTID[a3]'('expr_list[a4]')'
+{ $res = static_dispatch($a1, $a2, $a3, $a4); }
+| OBJECTID[a1]'('')'
+{ $res = static_dispatch(no_expr(), idtable.add_string("self"), $a1, nil_Expressions()); }
+| OBJECTID[a1]'('expr_list[a2]')'
+{ $res = static_dispatch(no_expr(), idtable.add_string("self"), $a1, $a2); }
+| IF expr[a1] THEN expr[a2] ELSE expr[a3] FI
+{ $res = cond($a1, $a2, $a3); }
+| WHILE expr[a1] LOOP expr[a2] POOL
+{ $res = loop($a1, $a2); }
+| '{' expr_block_list[a1] '}'
+{ $res = block($a1); }
+
+expr_list[res]: expr[a1]
+{ $res = single_Expressions($a1); }
+| expr[a1] ',' expr_list[a2]
+{ $res = append_Expressions(single_Expressions($a1), $a2); }
+
+expr_block_list[res]: expr[a1]';'
+{ $res = single_Expressions($a1); }
+| expr_block_list[a1] expr[a2] ';'
+{ $res = append_Expressions($a1, single_Expressions($a2)); }
 
 %%
 
