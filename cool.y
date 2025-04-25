@@ -129,26 +129,34 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
    documentation for details). */
 
 /* Declare types for the grammar's non-terminals . */
-%type <program> program
-%type <classes> class_list
-%type <class_> class
-%type <features> optional_feature_list
-%type <feature> feature
-%type <formal> formal
+%type <program> program 
+%type <classes> class_list 
+%type <class_> class 
+%type <features> optional_feature_list 
+%type <feature> feature 
+%type <formal> formal 
 %type <formals> formal_list 
-%type <expression> expr
-%type <expression> let_body
-%type <expressions> expr_list
+%type <expression> expr 
+%type <expression> let_body 
+%type <expressions> expr_list 
 %type <expressions> expr_block_list
 %type <case_> case
 %type <cases> case_list
 
 /* Precedence declarations go here. */
-
+%right ASSIGN
+%nonassoc NOT
+%nonassoc LE '<' '='
+%left '+' '-'
+%left '*' '/'
+%nonassoc ISVOID
+%nonassoc '~'
+%nonassoc '@'
+%nonassoc '.'
 
 %%
 // Save the root of the abstract syntax tree in a global variable.
-program	: class_list	{ @$ = @1; ast_root = program($1); }
+program	: class_list	{ @$ = @1; ast_root = program($1); };
 
 class_list
 : class			/* single class */
@@ -156,7 +164,7 @@ class_list
   parse_results = $$; }
 | class_list class	/* several classes */
 { $$ = append_Classes($1,single_Classes($2));
-  parse_results = $$; }
+  parse_results = $$; };
 
 /* If no parent is specified, the class inherits from the Object class. */
 class	: CLASS TYPEID '{' optional_feature_list '}' ';'
@@ -198,6 +206,8 @@ expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 { $res = assign($a1, $a2); }
 | expr[a1]'.'OBJECTID[a2]'('')'
 { $res = dispatch($a1, $a2, nil_Expressions()); }
+| expr[a1]'.'OBJECTID[a2]'(' expr_list[a3] ')'
+{ $res = dispatch($a1, $a2, $a3); }
 | expr[a1]'@'TYPEID[a2]'.'OBJECTID[a3]'('')'
 { $res = static_dispatch($a1, $a2, $a3, nil_Expressions()); }
 | expr[a1]'@'TYPEID[a2]'.'OBJECTID[a3]'('expr_list[a4]')'
@@ -235,7 +245,7 @@ expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 | expr[a1] LE expr[a2]
 { $res = leq($a1, $a2); }
 | expr[a1] '=' expr[a2]
-{ $res = eq($a2, $a2); }
+{ $res = eq($a1, $a2); }
 | NOT expr[a1]
 { $res = comp($a1); }
 | '('expr[a1]')'
@@ -257,8 +267,8 @@ expr_list[res]: expr[a1]
 
 expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
-| expr_block_list[a1] expr[a2] ';'
-{ $res = append_Expressions($a1, single_Expressions($a2)); }
+| expr[a1] ';' expr_block_list[a2] 
+{ $res = append_Expressions(single_Expressions($a1), $a2); }
 | error ';' expr_block_list[a1] { yyerrok; }
 
 case_list[res]: case[a1]
