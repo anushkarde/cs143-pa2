@@ -109,7 +109,7 @@ extern int cool_yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 87 "cool.y"
+#line 86 "cool.y"
 
   bool boolean;
   Symbol symbol;

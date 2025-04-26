@@ -1,6 +1,6 @@
 class X {
       foo(): Int {
-      -
+      ;
       };
 };
 

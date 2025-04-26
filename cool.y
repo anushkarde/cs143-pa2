@@ -7,12 +7,11 @@
 #include "cool-tree.h"
 #include "stringtab.h"
 #include "utilities.h"
-#include <iostream>
 
 /* Set the size of the parser stack to be sufficient large to accomodate
-   our tests.  There seems to be some problem with Bison's dynamic
-   reallocation of the parser stack, as it should resize to a max
-   size of YYMAXDEPTH, which is by default 10000. */
+    our tests.  There seems to be some problem with Bison's dynamic
+    reallocation of the parser stack, as it should resize to a max
+    size of YYMAXDEPTH, which is by default 10000. */
 #define YYINITDEPTH 3000
 
 /* Locations */
@@ -24,7 +23,7 @@ extern int node_lineno;          /* set before constructing a tree node
                                     for the tree node to be */
 
 /* The default action for locations.  Use the location of the first
-   terminal/non-terminal and set the node_lineno to that value. */
+    terminal/non-terminal and set the node_lineno to that value. */
 #define YYLLOC_DEFAULT(Current, Rhs, N)		  \
   Current = (Rhs)[1];                             \
   node_lineno = Current;
@@ -102,18 +101,18 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 }
 
 /*
-   Declare the terminals; a few have types for associated lexemes.
-   The token ERROR is never used in the parser; thus, it is a parse
-   error when the lexer returns it.
+    Declare the terminals; a few have types for associated lexemes.
+    The token ERROR is never used in the parser; thus, it is a parse
+    error when the lexer returns it.
 
-   The integer following token declaration is the numeric constant used
-   to represent that token internally.  Typically, Bison generates these
-   on its own, but we give explicit numbers to prevent version parity
-   problems (bison 1.25 and earlier start at 258, later versions -- at
-   257)
+    The integer following token declaration is the numeric constant used
+    to represent that token internally.  Typically, Bison generates these
+    on its own, but we give explicit numbers to prevent version parity
+    problems (bison 1.25 and earlier start at 258, later versions -- at
+    257)
 
-   NOTE: these numbers need to match what's in cool-parse.h !
- */
+    NOTE: these numbers need to match what's in cool-parse.h !
+  */
 %token CLASS 258 ELSE 259 FI 260 IF 261 IN 262
 %token INHERITS 263 LET 264 LOOP 265 POOL 266 THEN 267 WHILE 268
 %token CASE 269 ESAC 270 OF 271 DARROW 272 NEW 273 ISVOID 274
@@ -126,8 +125,8 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 /**************************************************************************/
 
 /* Complete the nonterminal list below, giving a type for the semantic
-   value of each non terminal. (See section 3.6 in the bison 
-   documentation for details). */
+    value of each non terminal. (See section 3.6 in the bison 
+    documentation for details). */
 
 /* Declare types for the grammar's non-terminals . */
 %type <program> program 
@@ -150,10 +149,10 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 %nonassoc LE '<' '='
 %left '+' '-'
 %left '*' '/'
-%left ISVOID
-%left '~'
-%left '@'
-%left '.'
+%nonassoc ISVOID
+%nonassoc '~'
+%nonassoc '@'
+%nonassoc '.'
 
 %%
 // Save the root of the abstract syntax tree in a global variable.
@@ -170,7 +169,7 @@ class_list
 /* If no parent is specified, the class inherits from the Object class. */
 class	: CLASS TYPEID '{' optional_feature_list '}' ';'
 { $$ = class_($2,idtable.add_string("Object"),$4,
-	      stringtable.add_string(curr_filename)); }
+        stringtable.add_string(curr_filename)); }
 | CLASS TYPEID INHERITS TYPEID '{' optional_feature_list '}' ';'
 { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
 | error ';' { yyerrok; };
@@ -259,26 +258,26 @@ expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 { $res = string_const($a1); }
 | BOOL_CONST[a1]
 { $res = bool_const($a1); }
-| error {};
+| error {}; 
 
 expr_list[res]: expr[a1]
 { $res = single_Expressions($a1); }
 | expr[a1] ',' expr_list[a2]
-{ $res = append_Expressions(single_Expressions($a1), $a2); };
+{ $res = append_Expressions(single_Expressions($a1), $a2); }
 
 expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
-| expr_block_list[a2] ';' expr[a1] ';'
+| expr[a1] ';' expr_block_list[a2] 
 { $res = append_Expressions(single_Expressions($a1), $a2); }
-| error expr_block_list[a1] { yyerrok; };
+| error expr_block_list[a1] { yyerrok; }
 
 case_list[res]: case[a1]
 { $res = single_Cases($a1); }
 | case_list[a1] case[a2]
-{ $res = append_Cases($a1, single_Cases($a2)); };
+{ $res = append_Cases($a1, single_Cases($a2)); }
 
 case[res]: OBJECTID[a1] ':' TYPEID[a2] DARROW expr[a3]';'
-{ $res = branch($a1, $a2, $a3); };
+{ $res = branch($a1, $a2, $a3); }
 
 let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, no_expr(), $a3); }
@@ -288,7 +287,7 @@ let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, no_expr(), $a3); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ',' let_body[a4]
 { $res = let($a1, $a2, $a3, $a4); }
-| error let_body { yyerrok; };
+| error let_body { yyerrok; }
 
 %%
 
