@@ -63,15 +63,7 @@
 #define YYPULL 1
 
 
-/* Substitute the variable and function names.  */
-#define yyparse         cool_yyparse
-#define yylex           cool_yylex
-#define yyerror         cool_yyerror
-#define yydebug         cool_yydebug
-#define yynerrs         cool_yynerrs
-#define yylval          cool_yylval
-#define yychar          cool_yychar
-#define yylloc          cool_yylloc
+
 
 /* First part of user prologue.  */
 #line 6 "cool.y"
@@ -79,7 +71,6 @@
 #include "cool-tree.h"
 #include "stringtab.h"
 #include "utilities.h"
-#include <iostream>
 
 /* Set the size of the parser stack to be sufficient large to accomodate
    our tests.  There seems to be some problem with Bison's dynamic
@@ -154,7 +145,7 @@ Program ast_root;	      /* the result of the parse  */
 Classes parse_results;        /* for use in semantic analysis */
 int omerrs = 0;               /* number of erros in lexing and parsing */
 
-#line 158 "cool-parse.cc"
+#line 149 "cool.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -185,16 +176,13 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 # define YYERROR_VERBOSE 0
 #endif
 
-/* Use api.header.include to #include this header
-   instead of duplicating it here.  */
-#ifndef YY_COOL_YY_COOL_PARSE_HH_INCLUDED
-# define YY_COOL_YY_COOL_PARSE_HH_INCLUDED
+
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 #if YYDEBUG
-extern int cool_yydebug;
+extern int yydebug;
 #endif
 
 /* Token type.  */
@@ -230,39 +218,12 @@ extern int cool_yydebug;
     ERROR = 283
   };
 #endif
-/* Tokens.  */
-#define CLASS 258
-#define ELSE 259
-#define FI 260
-#define IF 261
-#define IN 262
-#define INHERITS 263
-#define LET 264
-#define LOOP 265
-#define POOL 266
-#define THEN 267
-#define WHILE 268
-#define CASE 269
-#define ESAC 270
-#define OF 271
-#define DARROW 272
-#define NEW 273
-#define ISVOID 274
-#define STR_CONST 275
-#define INT_CONST 276
-#define BOOL_CONST 277
-#define TYPEID 278
-#define OBJECTID 279
-#define ASSIGN 280
-#define NOT 281
-#define LE 282
-#define ERROR 283
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 87 "cool.y"
+#line 86 "cool.y"
 
   bool boolean;
   Symbol symbol;
@@ -279,7 +240,7 @@ union YYSTYPE
   Expressions expressions;
   const char *error_msg;
 
-#line 283 "cool-parse.cc"
+#line 244 "cool.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -302,11 +263,11 @@ struct YYLTYPE
 #endif
 
 
-extern YYSTYPE cool_yylval;
-extern YYLTYPE cool_yylloc;
-int cool_yyparse (void);
+extern YYSTYPE yylval;
+extern YYLTYPE yylloc;
+int yyparse (void);
 
-#endif /* !YY_COOL_YY_COOL_PARSE_HH_INCLUDED  */
+
 
 
 
@@ -674,13 +635,13 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   160,   160,   163,   166,   171,   174,   176,   177,   181,
-     182,   184,   186,   189,   191,   193,   195,   198,   200,   203,
-     206,   208,   210,   212,   214,   216,   218,   220,   222,   224,
-     226,   228,   230,   232,   234,   236,   238,   240,   242,   244,
-     246,   248,   250,   252,   254,   256,   258,   260,   262,   264,
-     266,   269,   271,   273,   275,   277,   280,   283,   285,   287,
-     289,   291
+       0,   159,   159,   162,   165,   170,   173,   175,   176,   180,
+     181,   183,   185,   188,   190,   192,   194,   197,   199,   202,
+     205,   207,   209,   211,   213,   215,   217,   219,   221,   223,
+     225,   227,   229,   231,   233,   235,   237,   239,   241,   243,
+     245,   247,   249,   251,   253,   255,   257,   259,   261,   263,
+     265,   268,   270,   272,   274,   276,   279,   282,   284,   286,
+     288,   290
 };
 #endif
 
@@ -1724,370 +1685,370 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 160 "cool.y"
+#line 159 "cool.y"
                         { (yyloc) = (yylsp[0]); ast_root = program((yyvsp[0].classes)); }
-#line 1730 "cool-parse.cc"
+#line 1691 "cool.tab.c"
     break;
 
   case 3:
-#line 164 "cool.y"
+#line 163 "cool.y"
 { (yyval.classes) = single_Classes((yyvsp[0].class_));
   parse_results = (yyval.classes); }
-#line 1737 "cool-parse.cc"
+#line 1698 "cool.tab.c"
     break;
 
   case 4:
-#line 167 "cool.y"
+#line 166 "cool.y"
 { (yyval.classes) = append_Classes((yyvsp[-1].classes),single_Classes((yyvsp[0].class_)));
   parse_results = (yyval.classes); }
-#line 1744 "cool-parse.cc"
+#line 1705 "cool.tab.c"
     break;
 
   case 5:
-#line 172 "cool.y"
+#line 171 "cool.y"
 { (yyval.class_) = class_((yyvsp[-4].symbol),idtable.add_string("Object"),(yyvsp[-2].features),
 	      stringtable.add_string(curr_filename)); }
-#line 1751 "cool-parse.cc"
+#line 1712 "cool.tab.c"
     break;
 
   case 6:
-#line 175 "cool.y"
+#line 174 "cool.y"
 { (yyval.class_) = class_((yyvsp[-6].symbol),(yyvsp[-4].symbol),(yyvsp[-2].features),stringtable.add_string(curr_filename)); }
-#line 1757 "cool-parse.cc"
+#line 1718 "cool.tab.c"
     break;
 
   case 7:
-#line 176 "cool.y"
+#line 175 "cool.y"
                                                 { yyerrok; }
-#line 1763 "cool-parse.cc"
+#line 1724 "cool.tab.c"
     break;
 
   case 8:
-#line 177 "cool.y"
-            { cerr << "ENTERED HERE 1"; yyerrok; }
-#line 1769 "cool-parse.cc"
+#line 176 "cool.y"
+            { yyerrok; }
+#line 1730 "cool.tab.c"
     break;
 
   case 9:
-#line 181 "cool.y"
+#line 180 "cool.y"
 {  (yyval.features) = nil_Features(); }
-#line 1775 "cool-parse.cc"
+#line 1736 "cool.tab.c"
     break;
 
   case 10:
-#line 183 "cool.y"
+#line 182 "cool.y"
 { (yyval.features) = single_Features((yyvsp[0].feature)); }
-#line 1781 "cool-parse.cc"
+#line 1742 "cool.tab.c"
     break;
 
   case 11:
-#line 185 "cool.y"
+#line 184 "cool.y"
 { (yyval.features) = append_Features((yyvsp[-1].features), single_Features((yyvsp[0].feature))); }
-#line 1787 "cool-parse.cc"
+#line 1748 "cool.tab.c"
     break;
 
   case 12:
-#line 186 "cool.y"
+#line 185 "cool.y"
                               { yyerrok; }
-#line 1793 "cool-parse.cc"
+#line 1754 "cool.tab.c"
     break;
 
   case 13:
-#line 190 "cool.y"
+#line 189 "cool.y"
 { (yyval.feature) = method((yyvsp[-8].symbol), nil_Formals(), (yyvsp[-4].symbol), (yyvsp[-2].expression)); }
-#line 1799 "cool-parse.cc"
+#line 1760 "cool.tab.c"
     break;
 
   case 14:
-#line 192 "cool.y"
+#line 191 "cool.y"
 { (yyval.feature) = method((yyvsp[-9].symbol), (yyvsp[-7].formals), (yyvsp[-4].symbol), (yyvsp[-2].expression)); }
-#line 1805 "cool-parse.cc"
+#line 1766 "cool.tab.c"
     break;
 
   case 15:
-#line 194 "cool.y"
+#line 193 "cool.y"
 { (yyval.feature) = attr((yyvsp[-3].symbol), (yyvsp[-1].symbol), no_expr()); }
-#line 1811 "cool-parse.cc"
+#line 1772 "cool.tab.c"
     break;
 
   case 16:
-#line 196 "cool.y"
+#line 195 "cool.y"
 { (yyval.feature) = attr((yyvsp[-5].symbol), (yyvsp[-3].symbol), (yyvsp[-1].expression)); }
-#line 1817 "cool-parse.cc"
+#line 1778 "cool.tab.c"
     break;
 
   case 17:
-#line 199 "cool.y"
+#line 198 "cool.y"
 { (yyval.formals) = single_Formals((yyvsp[0].formal)); }
-#line 1823 "cool-parse.cc"
+#line 1784 "cool.tab.c"
     break;
 
   case 18:
-#line 201 "cool.y"
+#line 200 "cool.y"
 { (yyval.formals) = append_Formals(single_Formals((yyvsp[-2].formal)), (yyvsp[0].formals)); }
-#line 1829 "cool-parse.cc"
+#line 1790 "cool.tab.c"
     break;
 
   case 19:
-#line 204 "cool.y"
+#line 203 "cool.y"
 { (yyval.formal) = formal((yyvsp[-2].symbol), (yyvsp[0].symbol)); }
-#line 1835 "cool-parse.cc"
+#line 1796 "cool.tab.c"
     break;
 
   case 20:
-#line 207 "cool.y"
+#line 206 "cool.y"
 { (yyval.expression) = assign((yyvsp[-2].symbol), (yyvsp[0].expression)); }
-#line 1841 "cool-parse.cc"
+#line 1802 "cool.tab.c"
     break;
 
   case 21:
-#line 209 "cool.y"
+#line 208 "cool.y"
 { (yyval.expression) = dispatch((yyvsp[-4].expression), (yyvsp[-2].symbol), nil_Expressions()); }
-#line 1847 "cool-parse.cc"
+#line 1808 "cool.tab.c"
     break;
 
   case 22:
-#line 211 "cool.y"
+#line 210 "cool.y"
 { (yyval.expression) = dispatch((yyvsp[-5].expression), (yyvsp[-3].symbol), (yyvsp[-1].expressions)); }
-#line 1853 "cool-parse.cc"
+#line 1814 "cool.tab.c"
     break;
 
   case 23:
-#line 213 "cool.y"
+#line 212 "cool.y"
 { (yyval.expression) = static_dispatch((yyvsp[-6].expression), (yyvsp[-4].symbol), (yyvsp[-2].symbol), nil_Expressions()); }
-#line 1859 "cool-parse.cc"
+#line 1820 "cool.tab.c"
     break;
 
   case 24:
-#line 215 "cool.y"
+#line 214 "cool.y"
 { (yyval.expression) = static_dispatch((yyvsp[-7].expression), (yyvsp[-5].symbol), (yyvsp[-3].symbol), (yyvsp[-1].expressions)); }
-#line 1865 "cool-parse.cc"
+#line 1826 "cool.tab.c"
     break;
 
   case 25:
-#line 217 "cool.y"
+#line 216 "cool.y"
 { (yyval.expression) = dispatch(object(idtable.add_string("self")), (yyvsp[-2].symbol), nil_Expressions()); }
-#line 1871 "cool-parse.cc"
+#line 1832 "cool.tab.c"
     break;
 
   case 26:
-#line 219 "cool.y"
+#line 218 "cool.y"
 { (yyval.expression) = dispatch(object(idtable.add_string("self")), (yyvsp[-3].symbol), (yyvsp[-1].expressions)); }
-#line 1877 "cool-parse.cc"
+#line 1838 "cool.tab.c"
     break;
 
   case 27:
-#line 221 "cool.y"
+#line 220 "cool.y"
 { (yyval.expression) = cond((yyvsp[-5].expression), (yyvsp[-3].expression), (yyvsp[-1].expression)); }
-#line 1883 "cool-parse.cc"
+#line 1844 "cool.tab.c"
     break;
 
   case 28:
-#line 223 "cool.y"
+#line 222 "cool.y"
 { (yyval.expression) = loop((yyvsp[-3].expression), (yyvsp[-1].expression)); }
-#line 1889 "cool-parse.cc"
+#line 1850 "cool.tab.c"
     break;
 
   case 29:
-#line 225 "cool.y"
+#line 224 "cool.y"
 { (yyval.expression) = block((yyvsp[-1].expressions)); }
-#line 1895 "cool-parse.cc"
+#line 1856 "cool.tab.c"
     break;
 
   case 30:
-#line 227 "cool.y"
+#line 226 "cool.y"
 { (yyval.expression) = (yyvsp[0].expression); }
-#line 1901 "cool-parse.cc"
+#line 1862 "cool.tab.c"
     break;
 
   case 31:
-#line 229 "cool.y"
+#line 228 "cool.y"
 { (yyval.expression) = typcase((yyvsp[-3].expression), (yyvsp[-1].cases)); }
-#line 1907 "cool-parse.cc"
+#line 1868 "cool.tab.c"
     break;
 
   case 32:
-#line 231 "cool.y"
+#line 230 "cool.y"
 { (yyval.expression) = new_((yyvsp[0].symbol)); }
-#line 1913 "cool-parse.cc"
+#line 1874 "cool.tab.c"
     break;
 
   case 33:
-#line 233 "cool.y"
+#line 232 "cool.y"
 { (yyval.expression) = isvoid((yyvsp[0].expression)); }
-#line 1919 "cool-parse.cc"
+#line 1880 "cool.tab.c"
     break;
 
   case 34:
-#line 235 "cool.y"
+#line 234 "cool.y"
 { (yyval.expression) = plus((yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 1925 "cool-parse.cc"
+#line 1886 "cool.tab.c"
     break;
 
   case 35:
-#line 237 "cool.y"
+#line 236 "cool.y"
 { (yyval.expression) = sub((yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 1931 "cool-parse.cc"
+#line 1892 "cool.tab.c"
     break;
 
   case 36:
-#line 239 "cool.y"
+#line 238 "cool.y"
 { (yyval.expression) = mul((yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 1937 "cool-parse.cc"
+#line 1898 "cool.tab.c"
     break;
 
   case 37:
-#line 241 "cool.y"
+#line 240 "cool.y"
 { (yyval.expression) = divide((yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 1943 "cool-parse.cc"
+#line 1904 "cool.tab.c"
     break;
 
   case 38:
-#line 243 "cool.y"
+#line 242 "cool.y"
 { (yyval.expression) = neg((yyvsp[0].expression)); }
-#line 1949 "cool-parse.cc"
+#line 1910 "cool.tab.c"
     break;
 
   case 39:
-#line 245 "cool.y"
+#line 244 "cool.y"
 { (yyval.expression) = lt((yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 1955 "cool-parse.cc"
+#line 1916 "cool.tab.c"
     break;
 
   case 40:
-#line 247 "cool.y"
+#line 246 "cool.y"
 { (yyval.expression) = leq((yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 1961 "cool-parse.cc"
+#line 1922 "cool.tab.c"
     break;
 
   case 41:
-#line 249 "cool.y"
+#line 248 "cool.y"
 { (yyval.expression) = eq((yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 1967 "cool-parse.cc"
+#line 1928 "cool.tab.c"
     break;
 
   case 42:
-#line 251 "cool.y"
+#line 250 "cool.y"
 { (yyval.expression) = comp((yyvsp[0].expression)); }
-#line 1973 "cool-parse.cc"
+#line 1934 "cool.tab.c"
     break;
 
   case 43:
-#line 253 "cool.y"
+#line 252 "cool.y"
 { (yyval.expression) = (yyvsp[-1].expression); }
-#line 1979 "cool-parse.cc"
+#line 1940 "cool.tab.c"
     break;
 
   case 44:
-#line 255 "cool.y"
+#line 254 "cool.y"
 { (yyval.expression) = object((yyvsp[0].symbol)); }
-#line 1985 "cool-parse.cc"
+#line 1946 "cool.tab.c"
     break;
 
   case 45:
-#line 257 "cool.y"
+#line 256 "cool.y"
 { (yyval.expression) = int_const((yyvsp[0].symbol)); }
-#line 1991 "cool-parse.cc"
+#line 1952 "cool.tab.c"
     break;
 
   case 46:
-#line 259 "cool.y"
+#line 258 "cool.y"
 { (yyval.expression) = string_const((yyvsp[0].symbol)); }
-#line 1997 "cool-parse.cc"
+#line 1958 "cool.tab.c"
     break;
 
   case 47:
-#line 261 "cool.y"
+#line 260 "cool.y"
 { (yyval.expression) = bool_const((yyvsp[0].boolean)); }
-#line 2003 "cool-parse.cc"
+#line 1964 "cool.tab.c"
     break;
 
   case 48:
-#line 262 "cool.y"
+#line 261 "cool.y"
         {}
-#line 2009 "cool-parse.cc"
+#line 1970 "cool.tab.c"
     break;
 
   case 49:
-#line 265 "cool.y"
+#line 264 "cool.y"
 { (yyval.expressions) = single_Expressions((yyvsp[0].expression)); }
-#line 2015 "cool-parse.cc"
+#line 1976 "cool.tab.c"
     break;
 
   case 50:
-#line 267 "cool.y"
+#line 266 "cool.y"
 { (yyval.expressions) = append_Expressions(single_Expressions((yyvsp[-2].expression)), (yyvsp[0].expressions)); }
-#line 2021 "cool-parse.cc"
+#line 1982 "cool.tab.c"
     break;
 
   case 51:
-#line 270 "cool.y"
+#line 269 "cool.y"
 { (yyval.expressions) = single_Expressions((yyvsp[-1].expression)); }
-#line 2027 "cool-parse.cc"
+#line 1988 "cool.tab.c"
     break;
 
   case 52:
-#line 272 "cool.y"
+#line 271 "cool.y"
 { (yyval.expressions) = append_Expressions(single_Expressions((yyvsp[-1].expression)), (yyvsp[-3].expressions)); }
-#line 2033 "cool-parse.cc"
+#line 1994 "cool.tab.c"
     break;
 
   case 53:
-#line 273 "cool.y"
+#line 272 "cool.y"
                             { yyerrok; }
-#line 2039 "cool-parse.cc"
+#line 2000 "cool.tab.c"
     break;
 
   case 54:
-#line 276 "cool.y"
+#line 275 "cool.y"
 { (yyval.cases) = single_Cases((yyvsp[0].case_)); }
-#line 2045 "cool-parse.cc"
+#line 2006 "cool.tab.c"
     break;
 
   case 55:
-#line 278 "cool.y"
+#line 277 "cool.y"
 { (yyval.cases) = append_Cases((yyvsp[-1].cases), single_Cases((yyvsp[0].case_))); }
-#line 2051 "cool-parse.cc"
+#line 2012 "cool.tab.c"
     break;
 
   case 56:
-#line 281 "cool.y"
+#line 280 "cool.y"
 { (yyval.case_) = branch((yyvsp[-5].symbol), (yyvsp[-3].symbol), (yyvsp[-1].expression)); }
-#line 2057 "cool-parse.cc"
+#line 2018 "cool.tab.c"
     break;
 
   case 57:
-#line 284 "cool.y"
+#line 283 "cool.y"
 { (yyval.expression) = let((yyvsp[-4].symbol), (yyvsp[-2].symbol), no_expr(), (yyvsp[0].expression)); }
-#line 2063 "cool-parse.cc"
+#line 2024 "cool.tab.c"
     break;
 
   case 58:
-#line 286 "cool.y"
+#line 285 "cool.y"
 { (yyval.expression) = let((yyvsp[-6].symbol), (yyvsp[-4].symbol), (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2069 "cool-parse.cc"
+#line 2030 "cool.tab.c"
     break;
 
   case 59:
-#line 288 "cool.y"
+#line 287 "cool.y"
 { (yyval.expression) = let((yyvsp[-4].symbol), (yyvsp[-2].symbol), no_expr(), (yyvsp[0].expression)); }
-#line 2075 "cool-parse.cc"
+#line 2036 "cool.tab.c"
     break;
 
   case 60:
-#line 290 "cool.y"
+#line 289 "cool.y"
 { (yyval.expression) = let((yyvsp[-6].symbol), (yyvsp[-4].symbol), (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2081 "cool-parse.cc"
+#line 2042 "cool.tab.c"
     break;
 
   case 61:
-#line 291 "cool.y"
+#line 290 "cool.y"
                  { yyerrok; }
-#line 2087 "cool-parse.cc"
+#line 2048 "cool.tab.c"
     break;
 
 
-#line 2091 "cool-parse.cc"
+#line 2052 "cool.tab.c"
 
       default: break;
     }
@@ -2325,7 +2286,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 293 "cool.y"
+#line 292 "cool.y"
 
 
 /* This function is called automatically when Bison detects a parse error. */

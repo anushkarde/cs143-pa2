@@ -7,7 +7,7 @@ import os
 REFERENCE_PARSER = "/afs/ir/class/cs143/bin/parser"
 LEXER = "./lexer"
 CUSTOM_PARSER = "./parser"
-EXAMPLES_DIR = "/afs/ir/class/cs143/examples/"
+EXAMPLES_DIR = "./"
 
 def run_pipeline(file_name, parser_cmd):
     file_path = os.path.join(EXAMPLES_DIR, file_name)

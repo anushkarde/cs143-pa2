@@ -7,6 +7,7 @@
 #include "cool-tree.h"
 #include "stringtab.h"
 #include "utilities.h"
+#include <iostream>
 
 /* Set the size of the parser stack to be sufficient large to accomodate
    our tests.  There seems to be some problem with Bison's dynamic
@@ -149,10 +150,10 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 %nonassoc LE '<' '='
 %left '+' '-'
 %left '*' '/'
-%nonassoc ISVOID
-%nonassoc '~'
-%nonassoc '@'
-%nonassoc '.'
+%left ISVOID
+%left '~'
+%left '@'
+%left '.'
 
 %%
 // Save the root of the abstract syntax tree in a global variable.
@@ -173,7 +174,7 @@ class	: CLASS TYPEID '{' optional_feature_list '}' ';'
 | CLASS TYPEID INHERITS TYPEID '{' optional_feature_list '}' ';'
 { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
 | CLASS error '{' optional_feature_list '}' ';' { yyerrok; }
-| error ';' { yyerrok; };
+| error ';' { cerr << "ENTERED HERE 1"; yyerrok; };
 
 /* Feature list may be empty, but no empty features in list. */
 optional_feature_list:		/* empty */
@@ -182,7 +183,7 @@ optional_feature_list:		/* empty */
 { $$ = single_Features($1); }
 | optional_feature_list feature
 { $$ = append_Features($1, single_Features($2)); }
-| error ';' optional_feature_list { yyerrok; };
+| error optional_feature_list { yyerrok; };
 /* end of grammar */
 
 feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
@@ -258,26 +259,26 @@ expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 { $res = string_const($a1); }
 | BOOL_CONST[a1]
 { $res = bool_const($a1); }
-| error {}; 
+| error {};
 
 expr_list[res]: expr[a1]
 { $res = single_Expressions($a1); }
 | expr[a1] ',' expr_list[a2]
-{ $res = append_Expressions(single_Expressions($a1), $a2); }
+{ $res = append_Expressions(single_Expressions($a1), $a2); };
 
 expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
-| expr[a1] ';' expr_block_list[a2] 
+| expr_block_list[a2] ';' expr[a1] ';'
 { $res = append_Expressions(single_Expressions($a1), $a2); }
-| error ';' expr_block_list[a1] { yyerrok; }
+| error expr_block_list[a1] { yyerrok; };
 
 case_list[res]: case[a1]
 { $res = single_Cases($a1); }
 | case_list[a1] case[a2]
-{ $res = append_Cases($a1, single_Cases($a2)); }
+{ $res = append_Cases($a1, single_Cases($a2)); };
 
 case[res]: OBJECTID[a1] ':' TYPEID[a2] DARROW expr[a3]';'
-{ $res = branch($a1, $a2, $a3); }
+{ $res = branch($a1, $a2, $a3); };
 
 let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, no_expr(), $a3); }
@@ -287,7 +288,7 @@ let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, no_expr(), $a3); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ',' let_body[a4]
 { $res = let($a1, $a2, $a3, $a4); }
-| error let_body { yyerrok; }
+| error let_body { yyerrok; };
 
 %%
 
