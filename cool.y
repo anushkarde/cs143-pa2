@@ -173,8 +173,7 @@ class	: CLASS TYPEID '{' optional_feature_list '}' ';'
 	      stringtable.add_string(curr_filename)); }
 | CLASS TYPEID INHERITS TYPEID '{' optional_feature_list '}' ';'
 { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
-| CLASS error '{' optional_feature_list '}' ';' { yyerrok; }
-| error ';' { cerr << "ENTERED HERE 1"; yyerrok; };
+| error ';' { yyerrok; };
 
 /* Feature list may be empty, but no empty features in list. */
 optional_feature_list:		/* empty */
@@ -194,6 +193,7 @@ feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
 { $res = attr($a1, $a2, no_expr()); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ';'
 { $res = attr($a1, $a2, $a3); };
+| error ';' { yyerrok; }
 
 formal_list[res]: formal[a1]
 { $res = single_Formals($a1); }

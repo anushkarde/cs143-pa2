@@ -5,43 +5,86 @@ Shifting token CLASS (: )
 Entering state 2
 Reading a token: Next token is token TYPEID (: )
 Shifting token TYPEID (: )
-Entering state 8
+Entering state 7
 Reading a token: Next token is token '{' (: )
 Shifting token '{' (: )
-Entering state 13
+Entering state 11
+Reading a token: Next token is token OBJECTID (: )
+Shifting token OBJECTID (: )
+Entering state 14
+Reading a token: Next token is token '(' (: )
+Shifting token '(' (: )
+Entering state 20
+Reading a token: Next token is token ')' (: )
+Shifting token ')' (: )
+Entering state 27
+Reading a token: Next token is token ':' (: )
+Shifting token ':' (: )
+Entering state 34
 Reading a token: Next token is token TYPEID (: )
-"error.cl", line 2: syntax error at or near TYPEID = AKFSDFJDXF
+Shifting token TYPEID (: )
+Entering state 41
+Reading a token: Next token is token '{' (: )
+Shifting token '{' (: )
+Entering state 60
+Reading a token: Next token is token '-' (: )
+"error.cl", line 3: syntax error at or near '-'
 Shifting token error (: )
-Entering state 14
-Next token is token TYPEID (: )
-Error: discarding token TYPEID (: )
-Shifting token error (: )
-Entering state 14
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 2 7 11 14 20 27 34 41 60
+Entering state 88
+Next token is token '-' (: )
+Shifting token '-' (: )
+Entering state 82
 Reading a token: Next token is token '}' (: )
-Reducing stack by rule 8 (line 181):
--> $$ = nterm optional_feature_list (: )
-Stack now 0 2 8 13 14 14
-Entering state 20
-Next token is token '}' (: )
-Reducing stack by rule 11 (line 186):
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
    $1 = token error (: )
-   $2 = nterm optional_feature_list (: )
--> $$ = nterm optional_feature_list (: )
-Stack now 0 2 8 13 14
-Entering state 20
+-> $$ = nterm expr (: )
+Stack now 0 2 7 11 14 20 27 34 41 60 88 82
+Entering state 108
 Next token is token '}' (: )
-Reducing stack by rule 11 (line 186):
-   $1 = token error (: )
-   $2 = nterm optional_feature_list (: )
--> $$ = nterm optional_feature_list (: )
-Stack now 0 2 8 13
-Entering state 19
+Reducing stack by rule 34 (line 236):
+   $1 = nterm expr (: )
+   $2 = token '-' (: )
+   $3 = nterm expr (: )
+-> $$ = nterm expr (: )
+Stack now 0 2 7 11 14 20 27 34 41 60
+Entering state 88
 Next token is token '}' (: )
 Shifting token '}' (: )
-Entering state 26
+Entering state 113
 Reading a token: Next token is token ';' (: )
 Shifting token ';' (: )
-Entering state 34
+Entering state 127
+Reducing stack by rule 11 (line 188):
+   $1 = token OBJECTID (: )
+   $2 = token '(' (: )
+   $3 = token ')' (: )
+   $4 = token ':' (: )
+   $5 = token TYPEID (: )
+   $6 = token '{' (: )
+   $7 = nterm expr (: )
+   $8 = token '}' (: )
+   $9 = token ';' (: )
+-> $$ = nterm feature (: )
+Stack now 0 2 7 11
+Entering state 16
+Reducing stack by rule 8 (line 181):
+   $1 = nterm feature (: )
+-> $$ = nterm optional_feature_list (: )
+Stack now 0 2 7 11
+Entering state 15
+Reading a token: Next token is token '}' (: )
+Shifting token '}' (: )
+Entering state 23
+Reading a token: Next token is token ';' (: )
+Shifting token ';' (: )
+Entering state 31
 Reducing stack by rule 4 (line 171):
    $1 = token CLASS (: )
    $2 = token TYPEID (: )
@@ -62,27 +105,405 @@ Shifting token CLASS (: )
 Entering state 2
 Reading a token: Next token is token TYPEID (: )
 Shifting token TYPEID (: )
-Entering state 8
-Reading a token: Next token is token INHERITS (: )
-Shifting token INHERITS (: )
-Entering state 12
-Reading a token: Next token is token TYPEID (: )
-Shifting token TYPEID (: )
-Entering state 18
+Entering state 7
 Reading a token: Next token is token '{' (: )
 Shifting token '{' (: )
-Entering state 25
-Reading a token: Next token is token '}' (: )
-Reducing stack by rule 8 (line 181):
--> $$ = nterm optional_feature_list (: )
-Stack now 0 4 2 8 12 18 25
-Entering state 33
-Next token is token '}' (: )
-Shifting token '}' (: )
+Entering state 11
+Reading a token: Next token is token OBJECTID (: )
+Shifting token OBJECTID (: )
+Entering state 14
+Reading a token: Next token is token '(' (: )
+Shifting token '(' (: )
+Entering state 20
+Reading a token: Next token is token ')' (: )
+Shifting token ')' (: )
+Entering state 27
+Reading a token: Next token is token ':' (: )
+Shifting token ':' (: )
+Entering state 34
+Reading a token: Next token is token TYPEID (: )
+Shifting token TYPEID (: )
 Entering state 41
+Reading a token: Next token is token '{' (: )
+Shifting token '{' (: )
+Entering state 60
+Reading a token: Next token is token OBJECTID (: )
+Shifting token OBJECTID (: )
+Entering state 54
+Reading a token: Next token is token ':' (: )
+Reducing stack by rule 43 (line 254):
+   $1 = token OBJECTID (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Next token is token ':' (: )
+"error.cl", line 9: syntax error at or near ':'
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Next token is token ':' (: )
+Error: discarding token ':' (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token TYPEID (: )
+Error: discarding token TYPEID (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token ';' (: )
+Error: discarding token ';' (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token OBJECTID (: )
+Error: discarding token OBJECTID (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token ':' (: )
+Error: discarding token ':' (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token ':' (: )
+Error: discarding token ':' (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token ':' (: )
+Error: discarding token ':' (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token OBJECTID (: )
+Error: discarding token OBJECTID (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token ':' (: )
+Error: discarding token ':' (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token TYPEID (: )
+Error: discarding token TYPEID (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token ';' (: )
+Error: discarding token ';' (: )
+Error: popping nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Shifting token error (: )
+Entering state 44
+Reducing stack by rule 47 (line 262):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 4 2 7 11 14 20 27 34 41 60
+Entering state 88
+Reading a token: Next token is token '}' (: )
+Shifting token '}' (: )
+Entering state 113
 Reading a token: Next token is token ';' (: )
 Shifting token ';' (: )
-Entering state 62
+Entering state 127
+Reducing stack by rule 11 (line 188):
+   $1 = token OBJECTID (: )
+   $2 = token '(' (: )
+   $3 = token ')' (: )
+   $4 = token ':' (: )
+   $5 = token TYPEID (: )
+   $6 = token '{' (: )
+   $7 = nterm expr (: )
+   $8 = token '}' (: )
+   $9 = token ';' (: )
+-> $$ = nterm feature (: )
+Stack now 0 4 2 7 11
+Entering state 16
+Reducing stack by rule 8 (line 181):
+   $1 = nterm feature (: )
+-> $$ = nterm optional_feature_list (: )
+Stack now 0 4 2 7 11
+Entering state 15
+Reading a token: Next token is token '}' (: )
+Shifting token '}' (: )
+Entering state 23
+Reading a token: Next token is token ';' (: )
+Shifting token ';' (: )
+Entering state 31
+Reducing stack by rule 4 (line 171):
+   $1 = token CLASS (: )
+   $2 = token TYPEID (: )
+   $3 = token '{' (: )
+   $4 = nterm optional_feature_list (: )
+   $5 = token '}' (: )
+   $6 = token ';' (: )
+-> $$ = nterm class (: )
+Stack now 0 4
+Entering state 9
+Reducing stack by rule 3 (line 166):
+   $1 = nterm class_list (: )
+   $2 = nterm class (: )
+-> $$ = nterm class_list (: )
+Stack now 0
+Entering state 4
+Reading a token: Next token is token CLASS (: )
+Shifting token CLASS (: )
+Entering state 2
+Reading a token: Next token is token TYPEID (: )
+Shifting token TYPEID (: )
+Entering state 7
+Reading a token: Next token is token INHERITS (: )
+Shifting token INHERITS (: )
+Entering state 10
+Reading a token: Next token is token TYPEID (: )
+Shifting token TYPEID (: )
+Entering state 12
+Reading a token: Next token is token '{' (: )
+Shifting token '{' (: )
+Entering state 17
+Reading a token: Next token is token ';' (: )
+"error.cl", line 16: syntax error at or near ';'
+Shifting token error (: )
+Entering state 13
+Next token is token ';' (: )
+Shifting token ';' (: )
+Entering state 18
+Reducing stack by rule 15 (line 196):
+   $1 = token error (: )
+   $2 = token ';' (: )
+-> $$ = nterm feature (: )
+Stack now 0 4 2 7 10 12 17
+Entering state 16
+Reducing stack by rule 8 (line 181):
+   $1 = nterm feature (: )
+-> $$ = nterm optional_feature_list (: )
+Stack now 0 4 2 7 10 12 17
+Entering state 25
+Reading a token: Next token is token CLASS (: )
+"error.cl", line 18: syntax error at or near CLASS
+Shifting token error (: )
+Entering state 22
+Next token is token CLASS (: )
+Error: discarding token CLASS (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token TYPEID (: )
+Error: discarding token TYPEID (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token '{' (: )
+Error: discarding token '{' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token OBJECTID (: )
+Error: discarding token OBJECTID (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token '(' (: )
+Error: discarding token '(' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token ')' (: )
+Error: discarding token ')' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token ':' (: )
+Error: discarding token ':' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token TYPEID (: )
+Error: discarding token TYPEID (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token '{' (: )
+Error: discarding token '{' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token '(' (: )
+Error: discarding token '(' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token LET (: )
+Error: discarding token LET (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token OBJECTID (: )
+Error: discarding token OBJECTID (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token ':' (: )
+Error: discarding token ':' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token TYPEID (: )
+Error: discarding token TYPEID (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token ASSIGN (: )
+Error: discarding token ASSIGN (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token INT_CONST (: )
+Error: discarding token INT_CONST (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token IN (: )
+Error: discarding token IN (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token INT_CONST (: )
+Error: discarding token INT_CONST (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token ')' (: )
+Error: discarding token ')' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token '+' (: )
+Error: discarding token '+' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token INT_CONST (: )
+Error: discarding token INT_CONST (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token '}' (: )
+Error: discarding token '}' (: )
+Error: popping token error (: )
+Stack now 0 4 2 7 10 12 17 25
+Shifting token error (: )
+Entering state 22
+Reading a token: Next token is token ';' (: )
+Shifting token ';' (: )
+Entering state 18
+Reducing stack by rule 15 (line 196):
+   $1 = token error (: )
+   $2 = token ';' (: )
+-> $$ = nterm feature (: )
+Stack now 0 4 2 7 10 12 17 25
+Entering state 24
+Reducing stack by rule 9 (line 183):
+   $1 = nterm optional_feature_list (: )
+   $2 = nterm feature (: )
+-> $$ = nterm optional_feature_list (: )
+Stack now 0 4 2 7 10 12 17
+Entering state 25
+Reading a token: Next token is token '}' (: )
+Shifting token '}' (: )
+Entering state 32
+Reading a token: Next token is token ';' (: )
+Shifting token ';' (: )
+Entering state 39
 Reducing stack by rule 5 (line 174):
    $1 = token CLASS (: )
    $2 = token TYPEID (: )
@@ -94,7 +515,7 @@ Reducing stack by rule 5 (line 174):
    $8 = token ';' (: )
 -> $$ = nterm class (: )
 Stack now 0 4
-Entering state 10
+Entering state 9
 Reducing stack by rule 3 (line 166):
    $1 = nterm class_list (: )
    $2 = nterm class (: )
@@ -109,8 +530,8 @@ Stack now 0
 Entering state 3
 Now at end of input.
 Shifting token $end (: )
-Entering state 9
-Stack now 0 3 9
+Entering state 8
+Stack now 0 3 8
 Cleanup: popping token $end (: )
 Cleanup: popping nterm program (: )
 Compilation halted due to lex and parse errors

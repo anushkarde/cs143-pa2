@@ -1,6 +1,22 @@
-class A {
-    AKFSDFJDXF
+class X {
+      foo(): Int {
+      -
+      };
 };
 
-Class B inherits A {
+class A {
+ana(): Int {
+    dog: DOG;
+    dog::: 
+    cat: CAT;
+};
+};
+
+Class BB__ inherits A {
+;
+
+class C {
+ana(): Int {
+(let x:Int <- 13 in 2)+37
+};
 };
