@@ -144,15 +144,16 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 %type <cases> case_list
 
 /* Precedence declarations go here. */
+%nonassoc IN
 %right ASSIGN
-%nonassoc NOT
+%left NOT
 %nonassoc LE '<' '='
 %left '+' '-'
 %left '*' '/'
-%nonassoc ISVOID
-%nonassoc '~'
-%nonassoc '@'
-%nonassoc '.'
+%left ISVOID
+%left '~'
+%left '@'
+%left '.'
 
 %%
 // Save the root of the abstract syntax tree in a global variable.
@@ -164,7 +165,8 @@ class_list
   parse_results = $$; }
 | class_list class	/* several classes */
 { $$ = append_Classes($1,single_Classes($2));
-  parse_results = $$; };
+  parse_results = $$; }
+| error ';' class_list { yyerrok; }
 
 /* If no parent is specified, the class inherits from the Object class. */
 class	: CLASS TYPEID '{' optional_feature_list '}' ';'
@@ -172,7 +174,6 @@ class	: CLASS TYPEID '{' optional_feature_list '}' ';'
         stringtable.add_string(curr_filename)); }
 | CLASS TYPEID INHERITS TYPEID '{' optional_feature_list '}' ';'
 { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
-| error ';' { yyerrok; };
 
 /* Feature list may be empty, but no empty features in list. */
 optional_feature_list:		/* empty */
@@ -181,7 +182,7 @@ optional_feature_list:		/* empty */
 { $$ = single_Features($1); }
 | optional_feature_list feature
 { $$ = append_Features($1, single_Features($2)); }
-| error optional_feature_list { yyerrok; };
+| error ';' optional_feature_list { yyerrok; };
 /* end of grammar */
 
 feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
@@ -192,7 +193,6 @@ feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
 { $res = attr($a1, $a2, no_expr()); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ';'
 { $res = attr($a1, $a2, $a3); };
-| error ';' { yyerrok; }
 
 formal_list[res]: formal[a1]
 { $res = single_Formals($a1); }
