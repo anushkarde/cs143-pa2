@@ -1,4 +1,4 @@
-(* class X {
+class X {
       foo(): Int {
         {
             x * 3;
@@ -20,7 +20,7 @@ class A {
     anushka(): Double {
         here * 5
     };
-}; *)
+};
 
 (* error in class, should allow us to go to the next class *)
 class A {
@@ -28,7 +28,7 @@ class A {
 };
 
 Class BB__ inherits A { }; 
-(*
+
 class X {
       foo(): Int {
         {
@@ -37,4 +37,4 @@ class X {
             y * 4;
         }
       };
-}; *)
+};
