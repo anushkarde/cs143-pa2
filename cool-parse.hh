@@ -111,22 +111,23 @@ union YYSTYPE
 {
 #line 86 "cool.y"
 
-  bool boolean;
-  Symbol symbol;
-  Program program;
-  Class_ class_;
-  Classes classes;
-  Feature feature;
-  Features features;
-  Formal formal;
-  Formals formals;
-  Case case_;
-  Cases cases;
-  Expression expression;
-  Expressions expressions;
-  const char *error_msg;
+    bool boolean;
+    Symbol symbol;
+    Program program;
+    Class_ class_;
+    Classes classes;
+    Feature feature;
+    Features features;
+    Formal formal;
+    Formals formals;
+    Case case_;
+    Cases cases;
+    Expression expression;
+    Expressions expressions;
+    const char *error_msg;
+  
 
-#line 130 "cool-parse.hh"
+#line 131 "cool-parse.hh"
 
 };
 typedef union YYSTYPE YYSTYPE;

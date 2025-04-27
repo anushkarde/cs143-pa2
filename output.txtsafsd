@@ -1,0 +1,9 @@
+Starting parse
+Entering state 0
+Reading a token: Now at end of input.
+"Shifting token error (: )
+Entering state 1
+Now at end of input.
+Cleanup: discarding lookahead token $end (: )
+Stack now 0 1
+Cleanup: popping token error (: )
