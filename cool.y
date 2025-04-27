@@ -269,7 +269,7 @@ expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
 | expr[a1] ';' expr_block_list[a2] 
 { $res = append_Expressions(single_Expressions($a1), $a2); }
-| error expr_block_list[a1] { yyerrok; }
+| error ';' expr_block_list[a1] { yyerrok; }
 
 case_list[res]: case[a1]
 { $res = single_Cases($a1); }
@@ -287,7 +287,7 @@ let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, no_expr(), $a3); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ',' let_body[a4]
 { $res = let($a1, $a2, $a3, $a4); }
-| error let_body { yyerrok; }
+| error ',' let_body { yyerrok; }
 
 %%
 
