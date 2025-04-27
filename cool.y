@@ -166,7 +166,9 @@ class_list
 | class_list class	/* several classes */
 { $$ = append_Classes($1,single_Classes($2));
   parse_results = $$; }
-| error ';' class_list { yyerrok; }
+|  class_list[a1] error ';'
+{ $$ = $a1;
+  yyerrok; }
 
 /* If no parent is specified, the class inherits from the Object class. */
 class	: CLASS TYPEID '{' optional_feature_list '}' ';'
@@ -182,7 +184,9 @@ optional_feature_list:		/* empty */
 { $$ = single_Features($1); }
 | optional_feature_list feature
 { $$ = append_Features($1, single_Features($2)); }
-| error ';' optional_feature_list { yyerrok; };
+| optional_feature_list[a1] error ';'
+{ $$ = $a1;
+  yyerrok; };
 /* end of grammar */
 
 feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
@@ -269,7 +273,9 @@ expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
 | expr[a1] ';' expr_block_list[a2] 
 { $res = append_Expressions(single_Expressions($a1), $a2); }
-| error ';' expr_block_list[a1] { yyerrok; }
+| expr_block_list[a1] error ';' 
+{ $$ = $a1;
+  yyerrok; }
 
 case_list[res]: case[a1]
 { $res = single_Cases($a1); }
@@ -287,7 +293,9 @@ let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, no_expr(), $a3); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ',' let_body[a4]
 { $res = let($a1, $a2, $a3, $a4); }
-| error ',' let_body { yyerrok; }
+| error ',' let_body[a1] 
+{ $$ = $a1; 
+  yyerrok; }
 
 %%
 

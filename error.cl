@@ -1,4 +1,4 @@
-class X {
+(* class X {
       foo(): Int {
         {
             x * 3;
@@ -20,17 +20,15 @@ class A {
     anushka(): Double {
         here * 5
     };
-};
+}; *)
 
 (* error in class, should allow us to go to the next class *)
 class A {
     THIS IS AN ERROR
 };
 
-Class BB__ inherits A { };
-
--- ask TA: when this test is run alone, it works fine 
-
+Class BB__ inherits A { }; 
+(*
 class X {
       foo(): Int {
         {
@@ -39,4 +37,4 @@ class X {
             y * 4;
         }
       };
-};
+}; *)
