@@ -1,8 +1,11 @@
+asjdfjdkexjsld;   --extra tokens before class
+
 class X {
       foo(): Int {
       ;
       };
 };
+
 
 class X {
       foo(): Int {
@@ -17,6 +20,20 @@ class X {
       };
 };
 
+class X {
+      foo(): Int {
+        {
+            x *- 3;          -- error in first expr of block
+            let x: B in "str";
+            x**3; --incorrect expression in block
+            let y: A, b:: C, d:F in 1;          --bad let expression
+            ERROR;
+            y * 4;
+            badexprx5       -- error in last expr of block
+        }
+      };
+};
+
 (* error in feature, should allow us to go to the next feature *)
 class A {
     riya(): Int {
@@ -25,6 +42,19 @@ class A {
     };
     anushka(): Double {
         here * 5
+    };
+};
+
+(* error in last feature, should allow us to go to the next feature *)
+class A {
+    riya(): Int {
+        object <- 4
+    };
+    anushka(): Double {
+        here * 5
+    };
+    poop() Int {            -- no colon, so bad
+
     };
 };
 
@@ -44,3 +74,5 @@ class X {
         }
       };
 };
+
+class X {ERRORRRRR};
