@@ -282,7 +282,7 @@ expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
 | error ';'
 { $res = nil_Expressions(); yyerrok; std::cerr << "ERR IN EXPR BLOCK LIST 2" << std::endl; }
-| expr[a1] ';' expr_block_list[a2] 
+| expr_block_list[a2] expr[a1] ';'
 { $res = append_Expressions(single_Expressions($a1), $a2); }
 | expr_block_list[a1] error ';' 
 { $$ = $a1;
