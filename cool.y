@@ -169,8 +169,7 @@ class_list
   parse_results = $$; }
 |  class_list[a1] error ';'
 { $$ = $a1;
-  yyerrok;
-  std::cerr << "ERR IN FEATURE LIST" << std::endl; }
+  yyerrok; }
 
 /* If no parent is specified, the class inherits from the Object class. */
 class	: CLASS TYPEID '{' optional_feature_list '}' ';'
@@ -193,7 +192,7 @@ feature_list: feature ';'
 { $$ = append_Features($1, single_Features($2)); }
 | feature_list[a1] error ';'
 { $$ = $a1;
-  yyerrok; std::cerr << "ERR IN FEATURE LIST" << std::endl;};
+  yyerrok; };
 /* end of grammar */
 
 feature[res]: OBJECTID[a1] formals[a2] ':' TYPEID[a3] '{' expr[a4] '}'
@@ -281,13 +280,13 @@ expr_list[res]: expr[a1]
 expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
 | error ';'
-{ $res = nil_Expressions(); yyerrok; std::cerr << "ERR IN EXPR BLOCK LIST 2" << std::endl; }
+{ $res = nil_Expressions(); 
+  yyerrok; }
 | expr_block_list[a2] expr[a1] ';'
 { $res = append_Expressions(single_Expressions($a1), $a2); }
 | expr_block_list[a1] error ';' 
 { $$ = $a1;
-  yyerrok; 
-  std::cerr << "ERR IN EXPR BLOCK LIST" << std::endl; }
+  yyerrok; }
 
 
 case_list[res]: case[a1]
@@ -308,8 +307,7 @@ let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, $a3, $a4); }
 | error ',' let_body[a1] 
 { $$ = $a1; 
-  yyerrok; 
-  std::cerr << "ERROR IN LET BODY" << std::endl; }
+  yyerrok; }
 
 %%
 

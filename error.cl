@@ -3,7 +3,7 @@ class X {
       ;
       };
 };
-(*
+
 class X {
       foo(): Int {
         {
@@ -43,4 +43,4 @@ class X {
             y * 4;
         }
       };
-}; *)
+};
