@@ -9,97 +9,99 @@ Entering state 5
 Reading a token: Next token is token '{' (: )
 Shifting token '{' (: )
 Entering state 10
+Reading a token: Next token is token OBJECTID (: )
+Shifting token OBJECTID (: )
+Entering state 13
+Reading a token: Next token is token '(' (: )
+Shifting token '(' (: )
+Entering state 17
+Reading a token: Next token is token ')' (: )
+Shifting token ')' (: )
+Entering state 24
+Reading a token: Next token is token ':' (: )
+Shifting token ':' (: )
+Entering state 32
 Reading a token: Next token is token TYPEID (: )
-"error.cl", line 27: syntax error at or near TYPEID = THIS
-Shifting token error (: )
-Entering state 13
-Next token is token TYPEID (: )
-Error: discarding token TYPEID (: )
-Error: popping token error (: )
-Stack now 0 1 5 10
-Shifting token error (: )
-Entering state 13
-Reading a token: Next token is token TYPEID (: )
-Error: discarding token TYPEID (: )
-Error: popping token error (: )
-Stack now 0 1 5 10
-Shifting token error (: )
-Entering state 13
-Reading a token: Next token is token TYPEID (: )
-Error: discarding token TYPEID (: )
-Error: popping token error (: )
-Stack now 0 1 5 10
-Shifting token error (: )
-Entering state 13
-Reading a token: Next token is token TYPEID (: )
-Error: discarding token TYPEID (: )
-Error: popping token error (: )
-Stack now 0 1 5 10
-Shifting token error (: )
-Entering state 13
-Reading a token: Next token is token '}' (: )
-Error: discarding token '}' (: )
-Error: popping token error (: )
-Stack now 0 1 5 10
-Shifting token error (: )
-Entering state 13
-Reading a token: Next token is token ';' (: )
-Shifting token ';' (: )
-Entering state 18
-Reading a token: Next token is token CLASS (: )
-Shifting token error (: )
-Entering state 13
-Next token is token CLASS (: )
-Error: discarding token CLASS (: )
-Error: popping token error (: )
-Stack now 0 1 5 10 13 18
-Shifting token error (: )
-Entering state 13
-Reading a token: Next token is token TYPEID (: )
-Error: discarding token TYPEID (: )
-Error: popping token error (: )
-Stack now 0 1 5 10 13 18
-Shifting token error (: )
-Entering state 13
-Reading a token: Next token is token INHERITS (: )
-Error: discarding token INHERITS (: )
-Error: popping token error (: )
-Stack now 0 1 5 10 13 18
-Shifting token error (: )
-Entering state 13
-Reading a token: Next token is token TYPEID (: )
-Error: discarding token TYPEID (: )
-Error: popping token error (: )
-Stack now 0 1 5 10 13 18
-Shifting token error (: )
-Entering state 13
+Shifting token TYPEID (: )
+Entering state 39
 Reading a token: Next token is token '{' (: )
-Error: discarding token '{' (: )
-Error: popping token error (: )
-Stack now 0 1 5 10 13 18
+Shifting token '{' (: )
+Entering state 58
+Reading a token: Next token is token ';' (: )
+"error.cl", line 3: syntax error at or near ';'
 Shifting token error (: )
-Entering state 13
+Entering state 42
+Reducing stack by rule 46 (line 265):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 1 5 10 13 17 24 32 39 58
+Entering state 85
+Next token is token ';' (: )
+Error: discarding token ';' (: )
+Error: popping nterm expr (: )
+Stack now 0 1 5 10 13 17 24 32 39 58
+Shifting token error (: )
+Entering state 42
+Reducing stack by rule 46 (line 265):
+   $1 = token error (: )
+-> $$ = nterm expr (: )
+Stack now 0 1 5 10 13 17 24 32 39 58
+Entering state 85
 Reading a token: Next token is token '}' (: )
-Error: discarding token '}' (: )
-Error: popping token error (: )
-Stack now 0 1 5 10 13 18
-Shifting token error (: )
-Entering state 13
+Shifting token '}' (: )
+Entering state 109
 Reading a token: Next token is token ';' (: )
 Shifting token ';' (: )
-Entering state 18
+Entering state 124
+Reducing stack by rule 11 (line 192):
+   $1 = token OBJECTID (: )
+   $2 = token '(' (: )
+   $3 = token ')' (: )
+   $4 = token ':' (: )
+   $5 = token TYPEID (: )
+   $6 = token '{' (: )
+   $7 = nterm expr (: )
+   $8 = token '}' (: )
+   $9 = token ';' (: )
+-> $$ = nterm feature (: )
+Stack now 0 1 5 10
+Entering state 15
+Reducing stack by rule 8 (line 183):
+   $1 = nterm feature (: )
+-> $$ = nterm optional_feature_list (: )
+Stack now 0 1 5 10
+Entering state 14
+Reading a token: Next token is token '}' (: )
+Shifting token '}' (: )
+Entering state 20
+Reading a token: Next token is token ';' (: )
+Shifting token ';' (: )
+Entering state 29
+Reducing stack by rule 5 (line 174):
+   $1 = token CLASS (: )
+   $2 = token TYPEID (: )
+   $3 = token '{' (: )
+   $4 = nterm optional_feature_list (: )
+   $5 = token '}' (: )
+   $6 = token ';' (: )
+-> $$ = nterm class (: )
+Stack now 0
+Entering state 4
+Reducing stack by rule 2 (line 163):
+   $1 = nterm class (: )
+-> $$ = nterm class_list (: )
+Stack now 0
+Entering state 3
 Reading a token: Now at end of input.
-Shifting token error (: )
-Entering state 13
+Reducing stack by rule 1 (line 160):
+   $1 = nterm class_list (: )
+-> $$ = nterm program (: )
+Stack now 0
+Entering state 2
 Now at end of input.
-Cleanup: discarding lookahead token $end (: )
-Stack now 0 1 5 10 13 18 13 18 13
-Cleanup: popping token error (: )
-Cleanup: popping token ';' (: )
-Cleanup: popping token error (: )
-Cleanup: popping token ';' (: )
-Cleanup: popping token error (: )
-Cleanup: popping token '{' (: )
-Cleanup: popping token TYPEID (: )
-Cleanup: popping token CLASS (: )
+Shifting token $end (: )
+Entering state 6
+Stack now 0 2 6
+Cleanup: popping token $end (: )
+Cleanup: popping nterm program (: )
 Compilation halted due to lex and parse errors

@@ -133,9 +133,10 @@ int omerrs = 0;               /* number of erros in lexing and parsing */
 %type <classes> class_list 
 %type <class_> class 
 %type <features> optional_feature_list 
+%type <features> feature_list
 %type <feature> feature 
 %type <formal> formal 
-%type <formals> formal_list 
+%type <formals> formals formal_list 
 %type <expression> expr 
 %type <expression> let_body 
 %type <expressions> expr_list 
@@ -168,7 +169,8 @@ class_list
   parse_results = $$; }
 |  class_list[a1] error ';'
 { $$ = $a1;
-  yyerrok; }
+  yyerrok;
+  std::cerr << "ERR IN FEATURE LIST" << std::endl; }
 
 /* If no parent is specified, the class inherits from the Object class. */
 class	: CLASS TYPEID '{' optional_feature_list '}' ';'
@@ -180,23 +182,31 @@ class	: CLASS TYPEID '{' optional_feature_list '}' ';'
 /* Feature list may be empty, but no empty features in list. */
 optional_feature_list:		/* empty */
 {  $$ = nil_Features(); }
-| feature
+| feature_list 
+{ $$ = $1; }
+
+feature_list: feature ';'
 { $$ = single_Features($1); }
-| optional_feature_list feature
+| error ';'
+{ yyerrok; }
+| feature_list feature ';'
 { $$ = append_Features($1, single_Features($2)); }
-| optional_feature_list[a1] error ';'
+| feature_list[a1] error ';'
 { $$ = $a1;
-  yyerrok; };
+  yyerrok; std::cerr << "ERR IN FEATURE LIST" << std::endl;};
 /* end of grammar */
 
-feature[res]: OBJECTID[a1] '('')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
-{ $res = method($a1, nil_Formals(), $a3, $a4); }
-| OBJECTID[a1] '(' formal_list[a2] ')' ':' TYPEID[a3] '{' expr[a4] '}' ';'
+feature[res]: OBJECTID[a1] formals[a2] ':' TYPEID[a3] '{' expr[a4] '}'
 { $res = method($a1, $a2, $a3, $a4); }
-| OBJECTID[a1] ':' TYPEID[a2] ';'
+| OBJECTID[a1] ':' TYPEID[a2]
 { $res = attr($a1, $a2, no_expr()); }
-| OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ';'
+| OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3]
 { $res = attr($a1, $a2, $a3); };
+
+formals[res]: '(' ')'
+{ $res = nil_Formals(); }
+| '(' formal_list[a1] ')'
+{ $res = $a1; }
 
 formal_list[res]: formal[a1]
 { $res = single_Formals($a1); }
@@ -262,7 +272,6 @@ expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 { $res = string_const($a1); }
 | BOOL_CONST[a1]
 { $res = bool_const($a1); }
-| error {}; 
 
 expr_list[res]: expr[a1]
 { $res = single_Expressions($a1); }
@@ -271,11 +280,15 @@ expr_list[res]: expr[a1]
 
 expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
+| error ';'
+{ $res = nil_Expressions(); yyerrok; std::cerr << "ERR IN EXPR BLOCK LIST 2" << std::endl; }
 | expr[a1] ';' expr_block_list[a2] 
 { $res = append_Expressions(single_Expressions($a1), $a2); }
 | expr_block_list[a1] error ';' 
 { $$ = $a1;
-  yyerrok; }
+  yyerrok; 
+  std::cerr << "ERR IN EXPR BLOCK LIST" << std::endl; }
+
 
 case_list[res]: case[a1]
 { $res = single_Cases($a1); }
@@ -295,7 +308,8 @@ let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, $a3, $a4); }
 | error ',' let_body[a1] 
 { $$ = $a1; 
-  yyerrok; }
+  yyerrok; 
+  std::cerr << "ERROR IN LET BODY" << std::endl; }
 
 %%
 

@@ -1,5 +1,11 @@
 class X {
       foo(): Int {
+      ;
+      };
+};
+(*
+class X {
+      foo(): Int {
         {
             x * 3;
             let x: B in "str";
@@ -37,4 +43,4 @@ class X {
             y * 4;
         }
       };
-};
+}; *)
