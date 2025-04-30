@@ -211,8 +211,8 @@ formals[res]: '(' ')'
 
 formal_list[res]: formal[a1]
 { $res = single_Formals($a1); }
-| formal[a1] ',' formal_list[a2]
-{ $res = append_Formals(single_Formals($a1), $a2); };
+| formal_list[a2] ',' formal[a1]
+{ $res = append_Formals($a2, single_Formals($a1)); };
 
 formal[res]: OBJECTID[a1] ':' TYPEID[a2]
 { $res = formal($a1, $a2); };
@@ -276,7 +276,7 @@ expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 
 expr_list[res]: expr[a1]
 { $res = single_Expressions($a1); }
-| expr[a1] ',' expr_list[a2]
+|  expr[a1] ',' expr_list[a2]
 { $res = append_Expressions(single_Expressions($a1), $a2); }
 
 expr_block_list[res]: expr[a1]';'
@@ -284,9 +284,9 @@ expr_block_list[res]: expr[a1]';'
 | error ';'
 { $res = nil_Expressions(); 
   yyerrok; }
-| expr_block_list[a2] expr[a1] ';'
+| expr[a1] ';' expr_block_list[a2]
 { $res = append_Expressions(single_Expressions($a1), $a2); }
-| expr_block_list[a1] error ';' 
+| error ';' expr_block_list[a1] 
 { $$ = $a1;
   yyerrok; }
 
