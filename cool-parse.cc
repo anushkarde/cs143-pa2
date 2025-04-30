@@ -678,8 +678,8 @@ static const yytype_int16 yyrline[] =
      212,   214,   217,   220,   222,   224,   226,   228,   230,   232,
      234,   236,   238,   240,   242,   244,   246,   248,   250,   252,
      254,   256,   258,   260,   262,   264,   266,   268,   270,   272,
-     274,   277,   279,   282,   284,   287,   289,   294,   296,   299,
-     302,   304,   306,   308,   310
+     274,   277,   279,   282,   284,   287,   289,   293,   295,   298,
+     301,   303,   305,   307,   309
 };
 #endif
 
@@ -2054,49 +2054,49 @@ yyreduce:
     break;
 
   case 57:
-#line 295 "cool.y"
+#line 294 "cool.y"
 { (yyval.cases) = single_Cases((yyvsp[0].case_)); }
 #line 2060 "cool-parse.cc"
     break;
 
   case 58:
-#line 297 "cool.y"
+#line 296 "cool.y"
 { (yyval.cases) = append_Cases((yyvsp[-1].cases), single_Cases((yyvsp[0].case_))); }
 #line 2066 "cool-parse.cc"
     break;
 
   case 59:
-#line 300 "cool.y"
+#line 299 "cool.y"
 { (yyval.case_) = branch((yyvsp[-5].symbol), (yyvsp[-3].symbol), (yyvsp[-1].expression)); }
 #line 2072 "cool-parse.cc"
     break;
 
   case 60:
-#line 303 "cool.y"
+#line 302 "cool.y"
 { (yyval.expression) = let((yyvsp[-4].symbol), (yyvsp[-2].symbol), no_expr(), (yyvsp[0].expression)); }
 #line 2078 "cool-parse.cc"
     break;
 
   case 61:
-#line 305 "cool.y"
+#line 304 "cool.y"
 { (yyval.expression) = let((yyvsp[-6].symbol), (yyvsp[-4].symbol), (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2084 "cool-parse.cc"
     break;
 
   case 62:
-#line 307 "cool.y"
+#line 306 "cool.y"
 { (yyval.expression) = let((yyvsp[-4].symbol), (yyvsp[-2].symbol), no_expr(), (yyvsp[0].expression)); }
 #line 2090 "cool-parse.cc"
     break;
 
   case 63:
-#line 309 "cool.y"
+#line 308 "cool.y"
 { (yyval.expression) = let((yyvsp[-6].symbol), (yyvsp[-4].symbol), (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2096 "cool-parse.cc"
     break;
 
   case 64:
-#line 311 "cool.y"
+#line 310 "cool.y"
 { (yyval.expression) = (yyvsp[0].expression); 
   yyerrok; }
 #line 2103 "cool-parse.cc"
@@ -2341,7 +2341,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 314 "cool.y"
+#line 313 "cool.y"
 
 
 /* This function is called automatically when Bison detects a parse error. */

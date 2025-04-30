@@ -290,7 +290,6 @@ expr_block_list[res]: expr[a1]';'
 { $$ = $a1;
   yyerrok; }
 
-
 case_list[res]: case[a1]
 { $res = single_Cases($a1); }
 | case_list[a1] case[a2]
