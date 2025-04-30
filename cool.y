@@ -276,17 +276,17 @@ expr[res]: OBJECTID[a1] ASSIGN expr[a2]
 
 expr_list[res]: expr[a1]
 { $res = single_Expressions($a1); }
-|  expr[a1] ',' expr_list[a2]
-{ $res = append_Expressions(single_Expressions($a1), $a2); }
+|  expr_list[a2] ',' expr[a1]
+{ $res = append_Expressions($a2, single_Expressions($a1)); }
 
 expr_block_list[res]: expr[a1]';'
 { $res = single_Expressions($a1); }
 | error ';'
 { $res = nil_Expressions(); 
   yyerrok; }
-| expr[a1] ';' expr_block_list[a2]
-{ $res = append_Expressions(single_Expressions($a1), $a2); }
-| error ';' expr_block_list[a1] 
+| expr_block_list[a2] expr[a1] ';'
+{ $res = append_Expressions($a2, single_Expressions($a1)); }
+| expr_block_list[a1] error ';'
 { $$ = $a1;
   yyerrok; }
 
