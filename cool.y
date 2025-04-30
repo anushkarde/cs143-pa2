@@ -306,10 +306,11 @@ let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $res = let($a1, $a2, no_expr(), $a3); }
 | OBJECTID[a1] ':' TYPEID[a2] ASSIGN expr[a3] ',' let_body[a4]
 { $res = let($a1, $a2, $a3, $a4); }
-| error ',' let_body[a1] 
+| error ',' let_body[a1]
 { $$ = $a1; 
-  yyerrok; }
-
+  yyerrok;}
+| error IN expr[a3] 
+{ $$ = $a3; yyerrok; }
 %%
 
 /* This function is called automatically when Bison detects a parse error. */
