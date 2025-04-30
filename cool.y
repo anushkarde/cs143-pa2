@@ -310,7 +310,7 @@ let_body[res]: OBJECTID[a1] ':' TYPEID[a2] IN expr[a3]
 { $$ = $a1; 
   yyerrok;}
 | error IN expr[a3] 
-{ $$ = $a3; yyerrok; }
+{ yyerrok; }
 %%
 
 /* This function is called automatically when Bison detects a parse error. */
