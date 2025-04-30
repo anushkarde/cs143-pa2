@@ -1,29 +1,3 @@
-#3
-_program
-  #3
-  _class
-    X
-    Object
-    "error.cl"
-    (
-    #4
-    _method
-      foo
-      #4
-      _formal
-        hi
-        You
-      #4
-      _formal
-        bye
-        Me
-      #4
-      _formal
-        guy
-        Meee
-      Int
-      #5
-      _bool
-        0
-      : _no_type
-    )
+"all_tests.cl", line 1: syntax error at or near STR_CONST =  "error.cl"
+"all_tests.cl", line 10: syntax error at or near ERROR = '
+Compilation halted due to lex and parse errors
